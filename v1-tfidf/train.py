@@ -43,5 +43,5 @@ def train_model(data_dir, model_path):
 
 if __name__ == "__main__":
     data_dir = "data"
-    model_path = "models/prototype.pkl"
+    model_path = "models/tfidf_prototype.pkl"
     train_model(data_dir, model_path)
