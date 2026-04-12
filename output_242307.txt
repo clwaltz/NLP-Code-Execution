@@ -1,0 +1,69 @@
+examples: 2637
+vocab size: 8719
+[Fold 1] epoch 1: train=4.6966 val=5.1391
+[Fold 1] epoch 2: train=3.5149 val=5.0598
+[Fold 1] epoch 3: train=3.0865 val=4.9571
+[Fold 1] epoch 4: train=2.8405 val=5.2376
+[Fold 1] epoch 5: train=2.6435 val=5.3903
+[Fold 1] epoch 6: train=2.4832 val=5.3882
+[Fold 1] epoch 7: train=2.3803 val=5.2413
+[Fold 1] epoch 8: train=2.2396 val=5.6425
+[Fold 1] epoch 9: train=2.1420 val=5.5199
+[Fold 1] epoch 10: train=2.0380 val=5.4595
+[Fold 2] epoch 1: train=4.6211 val=4.9878
+[Fold 2] epoch 2: train=3.4657 val=5.4080
+[Fold 2] epoch 3: train=3.0744 val=5.2111
+[Fold 2] epoch 4: train=2.8108 val=5.1657
+[Fold 2] epoch 5: train=2.6057 val=5.1597
+[Fold 2] epoch 6: train=2.4754 val=5.1045
+[Fold 2] epoch 7: train=2.3382 val=5.2302
+[Fold 2] epoch 8: train=2.2088 val=5.2640
+[Fold 2] epoch 9: train=2.1350 val=5.4744
+[Fold 2] epoch 10: train=2.0203 val=5.4167
+[Fold 3] epoch 1: train=4.7303 val=4.9524
+[Fold 3] epoch 2: train=3.5972 val=5.2067
+[Fold 3] epoch 3: train=3.1819 val=5.1053
+[Fold 3] epoch 4: train=2.8928 val=5.4711
+[Fold 3] epoch 5: train=2.7214 val=5.4478
+[Fold 3] epoch 6: train=2.5804 val=5.1377
+[Fold 3] epoch 7: train=2.4082 val=5.8059
+[Fold 3] epoch 8: train=2.2932 val=5.7260
+[Fold 3] epoch 9: train=2.1686 val=5.5982
+[Fold 3] epoch 10: train=2.0686 val=5.6280
+[Fold 4] epoch 1: train=4.7055 val=4.9719
+[Fold 4] epoch 2: train=3.5586 val=5.0851
+[Fold 4] epoch 3: train=3.1649 val=5.4102
+[Fold 4] epoch 4: train=2.8961 val=5.3812
+[Fold 4] epoch 5: train=2.6965 val=5.4017
+[Fold 4] epoch 6: train=2.5416 val=5.2858
+[Fold 4] epoch 7: train=2.4166 val=5.4597
+[Fold 4] epoch 8: train=2.2895 val=5.2610
+[Fold 4] epoch 9: train=2.1908 val=5.2729
+[Fold 4] epoch 10: train=2.0756 val=5.4273
+[Fold 5] epoch 1: train=4.6628 val=5.3622
+[Fold 5] epoch 2: train=3.4919 val=5.2096
+[Fold 5] epoch 3: train=3.1097 val=5.6318
+[Fold 5] epoch 4: train=2.8440 val=5.6750
+[Fold 5] epoch 5: train=2.6448 val=5.7286
+[Fold 5] epoch 6: train=2.4719 val=5.4330
+[Fold 5] epoch 7: train=2.3489 val=5.4805
+[Fold 5] epoch 8: train=2.2585 val=5.9464
+[Fold 5] epoch 9: train=2.1617 val=5.6367
+[Fold 5] epoch 10: train=2.0148 val=5.8693
+saved report: reports/seq2seq_cv_5fold.json
+model created
+epoch 1/10 - train loss: 4.5050
+epoch 2/10 - train loss: 3.3621
+epoch 3/10 - train loss: 2.9920
+epoch 4/10 - train loss: 2.7456
+epoch 5/10 - train loss: 2.5579
+epoch 6/10 - train loss: 2.4310
+epoch 7/10 - train loss: 2.2703
+epoch 8/10 - train loss: 2.1848
+epoch 9/10 - train loss: 2.0882
+epoch 10/10 - train loss: 1.9528
+saved checkpoint: models/seq2seq_prototype.pt
+
+TEST QUESTION: sort the data by population column
+GENERATED CODE:
+ s = pd . series ( [ 1 , 2 , 3 , 4 ] , index = [ " a " , " b " , " c " ] ) s

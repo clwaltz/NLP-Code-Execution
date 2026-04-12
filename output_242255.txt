@@ -1,0 +1,10 @@
+examples: 2637
+vocab size: 8656
+epoch 1/3 - train loss: 6.0600
+epoch 2/3 - train loss: 4.8740
+epoch 3/3 - train loss: 4.4250
+saved checkpoint: models/seq2seq_prototype.pt
+
+TEST QUESTION: how do i read a csv file in pandas
+GENERATED CODE:
+ df pd dataframe a 1 2 3 4 df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df df

@@ -1,6 +1,17 @@
+import re
+import random
+import os
+
+from collections import Counter
+from torch.nn.utils.rnn import pad_sequence
+from data_loader import load_examples
+from sklearn.model_selection import KFold
+import numpy as np
+import json
+from pathlib import Path
+
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 class Encoder(nn.Module):
     def __init__(self, input_dim, emb_dim, hidden_dim):
@@ -55,13 +66,6 @@ class Seq2Seq(nn.Module):
 
         return outputs
 
-import re
-import random
-import os
-from collections import Counter
-from torch.nn.utils.rnn import pad_sequence
-from data_loader import load_examples
-
 SPECIALS = ["<pad>", "<sos>", "<eos>", "<unk>"]
 PAD_IDX, SOS_IDX, EOS_IDX, UNK_IDX = 0, 1, 2, 3
 
@@ -87,7 +91,7 @@ def encode(text, stoi):
     ids = [SOS_IDX] + [stoi.get(t, UNK_IDX) for t in toks] + [EOS_IDX]
     return torch.tensor(ids, dtype=torch.long)
 
-def create_batches(examples, stoi, batch_size = 16, shuffle=True):
+def create_batches(examples, stoi, device, batch_size = 16, shuffle=True):
     indices = list(range(len(examples)))
     if shuffle:
         random.shuffle(indices)
@@ -103,12 +107,12 @@ def create_batches(examples, stoi, batch_size = 16, shuffle=True):
         trg = pad_sequence(trg_list, padding_value=PAD_IDX).to(device)
         yield src, trg
 
-def train_epoch(model, examples, stoi, optimizer, criterion, batch_size=16):
+def train_epoch(model, examples, stoi, optimizer, criterion, device, batch_size=16):
     model.train()
     total_loss = 0.0
     n_batches = 0
 
-    for src, trg in create_batches(examples, stoi, batch_size=batch_size, shuffle=True):
+    for src, trg in create_batches(examples, stoi, device, batch_size=batch_size, shuffle=True):
         optimizer.zero_grad()
 
         outputs = model(src, trg, max_len=trg.shape[0], teacher_forcing_ratio=0.7)
@@ -150,24 +154,101 @@ def generate_code(model, question, stoi, itos, device, max_len=120):
         itos[t] for t in out_tokens
         if t < len(itos) and itos[t] not in {"<pad>", "<sos>", "<eos>", "<unk>"}
     ]
-    return " ".join(words)
+    return "".join(words)
 
-examples = load_examples("data")
-print(f"examples: {len(examples)}")
+def build_model(vocab_size, emb_dim, hid_dim, device):
+    enc = Encoder(vocab_size, emb_dim, hid_dim)
+    dec = Decoder(vocab_size, emb_dim, hid_dim)
+    model = Seq2Seq(enc, dec, device).to(device)
+    return model
 
-stoi, itos = build_vocab(examples, min_freq=1)
-vocab_size = len(itos)
-print(f"vocab size: {vocab_size}")
+@torch.no_grad()
+def eval_epoch(model, examples, stoi, criterion, device, batch_size=16):
+    model.eval()
+    total_loss = 0.0
+    n_batches = 0
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    for src, trg in create_batches(examples, stoi, device, batch_size=batch_size, shuffle=False):
+        outputs = model(src, trg, max_len=trg.shape[0], teacher_forcing_ratio=0.0)
+        loss = criterion(
+            outputs.reshape(-1, outputs.shape[-1]),
+            trg[1:].reshape(-1),
+        )
+        total_loss += loss.item()
+        n_batches += 1
 
-EMB_DIM = 128
-HID_DIM = 256
-BATCH_SIZE = 16
+    return total_loss / max(n_batches, 1)
 
-enc = Encoder(vocab_size, EMB_DIM, HID_DIM)
-dec = Decoder(vocab_size, EMB_DIM, HID_DIM)
-model = Seq2Seq(enc, dec, device).to(device)
+def run_cv(examples, n_splits, config, device, seed=42):
+    kf = KFold(n_splits=n_splits, shuffle=True, random_state=seed)
+    indices = np.arange(len(examples))
+    fold_results = []
+
+    for fold, (tr_idx, va_idx) in enumerate(kf.split(indices), start=1):
+        train_examples = [examples[i] for i in tr_idx]
+        val_examples = [examples[i] for i in va_idx]
+
+        stoi, itos = build_vocab(train_examples, min_freq=config["min_freq"])
+        vocab_size = len(itos)
+
+        model = build_model(vocab_size, config["emb_dim"], config["hid_dim"], device)
+        criterion = nn.CrossEntropyLoss(ignore_index=PAD_IDX)
+        optimizer = torch.optim.Adam(model.parameters(), lr=config["lr"])
+
+        for epoch in range(1, config["epochs"] + 1):
+            train_loss = train_epoch(model, train_examples, stoi, optimizer, criterion, device, batch_size=config["batch_size"])
+            val_loss = eval_epoch(model, val_examples, stoi, criterion, device, batch_size=config["batch_size"])
+            print(f"[Fold {fold}] epoch {epoch}: train={train_loss:.4f} val={val_loss:.4f}", flush=True)
+
+        fold_results.append({"fold": fold, "n_val": len(val_examples), "val_loss": float(val_loss)})
+
+    summary = {
+        "n_splits": n_splits,
+        "n_examples": len(examples),
+        "folds": fold_results,
+        "mean_val_loss": float(np.mean([f["val_loss"] for f in fold_results])),
+        "std_val_loss": float(np.std([f["val_loss"] for f in fold_results]))
+    }
+    return summary
+
+def main():
+    examples = load_examples("data")
+    print(f"examples: {len(examples)}", flush=True)
+
+    config = {
+        "emb_dim": 128,
+        "hid_dim": 256,
+        "batch_size": 16,
+        "epochs": 10,
+        "lr": 1e-3,
+        "min_freq": 1
+    }
+
+    stoi, itos = build_vocab(examples, min_freq=config["min_freq"])
+    vocab_size = len(itos)
+    print(f"vocab size: {vocab_size}", flush=True)
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    reports_dir = Path("reports")
+    reports_dir.mkdir(exist_ok=True)
+
+    # summary_5 = run_cv(examples, n_splits=5, config=config, device=device, seed=42)
+    # (reports_dir / "seq2seq_cv_5fold.json").write_text(
+    #     json.dumps(summary_5, indent=2),
+    #     encoding="utf-8",
+    # )
+    # print("saved report: reports/seq2seq_cv_5fold.json", flush=True)
+
+    summary_10 = run_cv(examples, n_splits=10, config=config, device=device, seed=42)
+    (reports_dir / "seq2seq_cv_10fold.json").write_text(
+        json.dumps(summary_10, indent=2),
+        encoding="utf-8",
+    )
+    print("saved report: reports/seq2seq_cv_10fold.json", flush=True)
+
+    model = build_model(vocab_size, config["emb_dim"], config["hid_dim"], device)
+    print("model created", flush=True)
 
 # src, trg = make_batch(examples, stoi, batch_size=BATCH_SIZE)
 # src, trg = src.to(device), trg.to(device)
@@ -178,34 +259,37 @@ model = Seq2Seq(enc, dec, device).to(device)
 # outputs = model(src, trg, max_len=trg.shape[0], teacher_forcing_ratio=0.7)
 # print(f"pred shape: {outputs.shape}")
 
-criterion = nn.CrossEntropyLoss(ignore_index=PAD_IDX)
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    criterion = nn.CrossEntropyLoss(ignore_index=PAD_IDX)
+    optimizer = torch.optim.Adam(model.parameters(), lr=config["lr"])
 
-EPOCHS = 3
-for epoch in range(1, EPOCHS+1):
-    avg_loss = train_epoch(model, examples, stoi, optimizer, criterion, batch_size=BATCH_SIZE)
-    print(f"epoch {epoch}/{EPOCHS} - train loss: {avg_loss:.4f}")
+    for epoch in range(1, config["epochs"]+1):
+        avg_loss = train_epoch(model, examples, stoi, optimizer, criterion, device, batch_size=config["batch_size"])
+        print(f"epoch {epoch}/{config['epochs']} - train loss: {avg_loss:.4f}", flush=True)
 
-os.makedirs("models", exist_ok=True)
-ckpt_path = "models/seq2seq_prototype.pt"
+    os.makedirs("models", exist_ok=True)
+    ckpt_path = "models/seq2seq_prototype.pt"
 
-torch.save(
-    {
-        "model_state_dict": model.state_dict(),
-        "stoi": stoi,
-        "itos": itos,
-        "emb_dim": EMB_DIM,
-        "hid_dim": HID_DIM,
-        "pad_idx": PAD_IDX,
-        "sos_idx": SOS_IDX,
-        "eos_idx": EOS_IDX,
-        "unk_idx": UNK_IDX,
-    },
-    ckpt_path,
-)
-print(f"saved checkpoint: {ckpt_path}")
+    torch.save(
+        {
+            "model_state_dict": model.state_dict(),
+            "stoi": stoi,
+            "itos": itos,
+            "emb_dim": config["emb_dim"],
+            "hid_dim": config["hid_dim"],
+            "pad_idx": PAD_IDX,
+            "sos_idx": SOS_IDX,
+            "eos_idx": EOS_IDX,
+            "unk_idx": UNK_IDX,
+        },
+        ckpt_path,
+    )
+    print(f"saved checkpoint: {ckpt_path}", flush=True)
 
-test_q = "how do i read a csv file in pandas"
-pred = generate_code(model, test_q, stoi, itos, device)
-print("\nTEST QUESTION:", test_q)
-print("GENERATED CODE:\n", pred)
+    test_q = "sort the data by population column"
+    pred = generate_code(model, test_q, stoi, itos, device)
+    print("\nTEST QUESTION:", test_q)
+    print("GENERATED CODE:\n", pred)
+
+if __name__ == "__main__":
+    main()
+    

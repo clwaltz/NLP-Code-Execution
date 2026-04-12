@@ -1,0 +1,17 @@
+examples: 2637
+vocab size: 8656
+epoch 1/10 - train loss: 6.0602
+epoch 2/10 - train loss: 4.9010
+epoch 3/10 - train loss: 4.4312
+epoch 4/10 - train loss: 4.1124
+epoch 5/10 - train loss: 3.8698
+epoch 6/10 - train loss: 3.5622
+epoch 7/10 - train loss: 3.3381
+epoch 8/10 - train loss: 3.1127
+epoch 9/10 - train loss: 2.8938
+epoch 10/10 - train loss: 2.6910
+saved checkpoint: models/seq2seq_prototype.pt
+
+TEST QUESTION: how do i read a csv file in pandas
+GENERATED CODE:
+ import pandas as pd import numpy as np import pandas as pd import numpy as np import pandas as pd import numpy as np data np random randint 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1

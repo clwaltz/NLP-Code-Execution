@@ -1,0 +1,18 @@
+examples: 2637
+vocab size: 8719
+model created
+epoch 1/10 - train loss: 4.5426
+epoch 2/10 - train loss: 3.3991
+epoch 3/10 - train loss: 3.0001
+epoch 4/10 - train loss: 2.7655
+epoch 5/10 - train loss: 2.5526
+epoch 6/10 - train loss: 2.4137
+epoch 7/10 - train loss: 2.2703
+epoch 8/10 - train loss: 2.1848
+epoch 9/10 - train loss: 2.0656
+epoch 10/10 - train loss: 1.9864
+saved checkpoint: models/seq2seq_prototype.pt
+
+TEST QUESTION: sort the data by population column
+GENERATED CODE:
+ df = pd . dataframe ( { " a " : [ 1 , 2 , 3 ] , " b " : [ 4 , 5 , 6 ] } ) df . groupby ( " a " ) . tail ( )

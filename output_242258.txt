@@ -1,0 +1,17 @@
+examples: 2637
+vocab size: 8719
+epoch 1/10 - train loss: 4.5205
+epoch 2/10 - train loss: 3.3540
+epoch 3/10 - train loss: 2.9701
+epoch 4/10 - train loss: 2.7159
+epoch 5/10 - train loss: 2.5396
+epoch 6/10 - train loss: 2.3749
+epoch 7/10 - train loss: 2.2519
+epoch 8/10 - train loss: 2.1431
+epoch 9/10 - train loss: 2.0698
+epoch 10/10 - train loss: 1.9669
+saved checkpoint: models/seq2seq_prototype.pt
+
+TEST QUESTION: how do i read a csv file in pandas
+GENERATED CODE:
+ df = pd . dataframe ( { " a " : [ " a " , " b " , " c " , " b " ] , " c " : [ " a " , " b " , " c " , " d " ] , " c " : [ " a " , " b " , " c " ] , " c " : [ " a " , " b " , " c " , " d " ] , " c " : [ " a " , " b " , " c " ] , " c " : [ " a " , " b

@@ -35,7 +35,7 @@ def token_f1(pred, gold):
 
     return 2 * precision * recall / (precision + recall)
 
-def run_cv(n_splits, random_state: 42):
+def run_cv(n_splits, random_state=42):
     examples = load_examples("data")
     questions = np.array([e["q"] for e in examples])
     answers = np.array([e["a"] for e in examples])
