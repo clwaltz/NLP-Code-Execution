@@ -1,0 +1,25 @@
+15:4: not a valid test operator:  
+15:4: not a valid test operator: 12.4
+21:4: not a valid test operator: (
+21:4: not a valid test operator: 525.105.17
+/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/torch/cuda/__init__.py:180: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 12040). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:119.)
+  return torch._C._cuda_getDeviceCount() > 0
+The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers and GPU quantization are unavailable.
+Traceback (most recent call last):
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/lora_finetune.py", line 239, in <module>
+    main()
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/lora_finetune.py", line 163, in main
+    model, tokenizer = build_model_and_tokenizer(args)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/lora_finetune.py", line 109, in build_model_and_tokenizer
+    model = AutoModelForCausalLM.from_pretrained(args.model_name, **model_kwargs)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 564, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3669, in from_pretrained
+    hf_quantizer.validate_environment(
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/quantizers/quantizer_bnb_4bit.py", line 82, in validate_environment
+    validate_bnb_backend_availability(raise_exception=True)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/integrations/bitsandbytes.py", line 557, in validate_bnb_backend_availability
+    return _validate_bnb_multi_backend_availability(raise_exception)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/integrations/bitsandbytes.py", line 498, in _validate_bnb_multi_backend_availability
+    available_devices.discard("cpu")  # Only Intel CPU is supported by BNB at the moment
+AttributeError: 'frozenset' object has no attribute 'discard'

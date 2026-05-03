@@ -1,0 +1,62 @@
+{
+  "run_id": "248654",
+  "data_dir": "data_collection_2",
+  "train_size": 2006,
+  "val_size": 250,
+  "test_size": 253,
+  "best_val_loss": 5.1281633377075195,
+  "test_loss": 5.170682817697525,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 4.60959559962863,
+      "val_loss": 5.1281633377075195
+    },
+    {
+      "epoch": 2,
+      "train_loss": 3.5160886143881176,
+      "val_loss": 5.698985606431961
+    },
+    {
+      "epoch": 3,
+      "train_loss": 3.134953633187309,
+      "val_loss": 5.599625140428543
+    },
+    {
+      "epoch": 4,
+      "train_loss": 2.867264529069265,
+      "val_loss": 5.857901781797409
+    },
+    {
+      "epoch": 5,
+      "train_loss": 2.69517220296557,
+      "val_loss": 6.143690317869186
+    },
+    {
+      "epoch": 6,
+      "train_loss": 2.5367962415256198,
+      "val_loss": 6.216691106557846
+    },
+    {
+      "epoch": 7,
+      "train_loss": 2.4106154101235524,
+      "val_loss": 6.329337298870087
+    },
+    {
+      "epoch": 8,
+      "train_loss": 2.2903941718358842,
+      "val_loss": 6.265160173177719
+    },
+    {
+      "epoch": 9,
+      "train_loss": 2.179714630520533,
+      "val_loss": 6.6294951140880585
+    },
+    {
+      "epoch": 10,
+      "train_loss": 2.0916258389987643,
+      "val_loss": 6.398068934679031
+    }
+  ],
+  "checkpoint_path": "models/seq2seq_prototype_248654.pt"
+}

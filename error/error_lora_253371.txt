@@ -1,0 +1,25 @@
+15:4: not a valid test operator:  
+15:4: not a valid test operator: 12.4
+21:4: not a valid test operator: (
+21:4: not a valid test operator: 525.105.17
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+cudf 24.4.0 requires pyarrow<15.0.0a0,>=14.0.1, but you have pyarrow 24.0.0 which is incompatible.
+
+[notice] A new release of pip is available: 24.0 -> 26.1
+[notice] To update, run: python -m pip install --upgrade pip
+/home/ad.msoe.edu/waltzc/.local/lib/python3.10/site-packages/transformers/utils/generic.py:441: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  _torch_pytree._register_pytree_node(
+/home/ad.msoe.edu/waltzc/.local/lib/python3.10/site-packages/transformers/utils/generic.py:309: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  _torch_pytree._register_pytree_node(
+/home/ad.msoe.edu/waltzc/.local/lib/python3.10/site-packages/transformers/utils/generic.py:309: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  _torch_pytree._register_pytree_node(
+Traceback (most recent call last):
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/lora_finetune.py", line 10, in <module>
+    from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+  File "/home/ad.msoe.edu/waltzc/.local/lib/python3.10/site-packages/peft/__init__.py", line 17, in <module>
+    from .auto import (
+  File "/home/ad.msoe.edu/waltzc/.local/lib/python3.10/site-packages/peft/auto.py", line 32, in <module>
+    from .peft_model import (
+  File "/home/ad.msoe.edu/waltzc/.local/lib/python3.10/site-packages/peft/peft_model.py", line 38, in <module>
+    from transformers import Cache, DynamicCache, EncoderDecoderCache, PreTrainedModel
+ImportError: cannot import name 'Cache' from 'transformers' (/home/ad.msoe.edu/waltzc/.local/lib/python3.10/site-packages/transformers/__init__.py)

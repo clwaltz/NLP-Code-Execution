@@ -1,0 +1,175 @@
+[setup] upgrading pip
+Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com
+Requirement already satisfied: pip in ./.venv_lora/lib/python3.10/site-packages (22.0.2)
+Collecting pip
+  Downloading pip-26.1-py3-none-any.whl (1.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 19.3 MB/s eta 0:00:00
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 22.0.2
+    Uninstalling pip-22.0.2:
+      Successfully uninstalled pip-22.0.2
+Successfully installed pip-26.1
+[setup] installing base LoRA deps
+Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com
+Requirement already satisfied: torch<2.5 in /usr/local/lib/python3.10/dist-packages (2.4.0a0+07cecf4168.nv24.5)
+Collecting transformers<4.48,>=4.41
+  Downloading transformers-4.47.1-py3-none-any.whl.metadata (44 kB)
+Collecting peft<0.14,>=0.11
+  Downloading peft-0.13.2-py3-none-any.whl.metadata (13 kB)
+Collecting datasets<3.0,>=2.19
+  Downloading datasets-2.21.0-py3-none-any.whl.metadata (21 kB)
+Collecting accelerate<1.0,>=0.30
+  Downloading accelerate-0.34.2-py3-none-any.whl.metadata (19 kB)
+Collecting huggingface-hub<1.0,>=0.24
+  Downloading huggingface_hub-0.36.2-py3-none-any.whl.metadata (15 kB)
+Collecting sentencepiece
+  Downloading sentencepiece-0.2.1-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)
+Requirement already satisfied: filelock in /usr/local/lib/python3.10/dist-packages (from torch<2.5) (3.14.0)
+Requirement already satisfied: typing-extensions>=4.8.0 in /usr/local/lib/python3.10/dist-packages (from torch<2.5) (4.11.0)
+Requirement already satisfied: sympy in /usr/local/lib/python3.10/dist-packages (from torch<2.5) (1.12)
+Requirement already satisfied: networkx in /usr/local/lib/python3.10/dist-packages (from torch<2.5) (3.3)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.10/dist-packages (from torch<2.5) (3.1.3)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.10/dist-packages (from torch<2.5) (2024.3.1)
+Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.10/dist-packages (from transformers<4.48,>=4.41) (1.24.4)
+Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.10/dist-packages (from transformers<4.48,>=4.41) (24.0)
+Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.10/dist-packages (from transformers<4.48,>=4.41) (6.0.1)
+Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.10/dist-packages (from transformers<4.48,>=4.41) (2024.4.28)
+Requirement already satisfied: requests in /usr/local/lib/python3.10/dist-packages (from transformers<4.48,>=4.41) (2.31.0)
+Collecting tokenizers<0.22,>=0.21 (from transformers<4.48,>=4.41)
+  Downloading tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.7 kB)
+Collecting safetensors>=0.4.1 (from transformers<4.48,>=4.41)
+  Downloading safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.10/dist-packages (from transformers<4.48,>=4.41) (4.66.4)
+Requirement already satisfied: psutil in /usr/local/lib/python3.10/dist-packages (from peft<0.14,>=0.11) (5.9.8)
+Collecting pyarrow>=15.0.0 (from datasets<3.0,>=2.19)
+  Downloading pyarrow-24.0.0-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Collecting dill<0.3.9,>=0.3.0 (from datasets<3.0,>=2.19)
+  Downloading dill-0.3.8-py3-none-any.whl.metadata (10 kB)
+Requirement already satisfied: pandas in /usr/local/lib/python3.10/dist-packages (from datasets<3.0,>=2.19) (2.2.1)
+Collecting requests (from transformers<4.48,>=4.41)
+  Downloading requests-2.33.1-py3-none-any.whl.metadata (4.8 kB)
+Collecting xxhash (from datasets<3.0,>=2.19)
+  Downloading xxhash-3.7.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+Collecting multiprocess (from datasets<3.0,>=2.19)
+  Downloading multiprocess-0.70.19-py310-none-any.whl.metadata (7.5 kB)
+Requirement already satisfied: aiohttp in /usr/local/lib/python3.10/dist-packages (from datasets<3.0,>=2.19) (3.9.5)
+Collecting hf-xet<2.0.0,>=1.1.3 (from huggingface-hub<1.0,>=0.24)
+  Downloading hf_xet-1.4.3-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Requirement already satisfied: aiosignal>=1.1.2 in /usr/local/lib/python3.10/dist-packages (from aiohttp->datasets<3.0,>=2.19) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.10/dist-packages (from aiohttp->datasets<3.0,>=2.19) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.10/dist-packages (from aiohttp->datasets<3.0,>=2.19) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.10/dist-packages (from aiohttp->datasets<3.0,>=2.19) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /usr/local/lib/python3.10/dist-packages (from aiohttp->datasets<3.0,>=2.19) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /usr/local/lib/python3.10/dist-packages (from aiohttp->datasets<3.0,>=2.19) (4.0.3)
+Requirement already satisfied: idna>=2.0 in /usr/local/lib/python3.10/dist-packages (from yarl<2.0,>=1.0->aiohttp->datasets<3.0,>=2.19) (3.7)
+Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.10/dist-packages (from requests->transformers<4.48,>=4.41) (3.3.2)
+Requirement already satisfied: urllib3<3,>=1.26 in /usr/local/lib/python3.10/dist-packages (from requests->transformers<4.48,>=4.41) (2.0.7)
+Requirement already satisfied: certifi>=2023.5.7 in /usr/local/lib/python3.10/dist-packages (from requests->transformers<4.48,>=4.41) (2024.2.2)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.10/dist-packages (from jinja2->torch<2.5) (2.1.5)
+INFO: pip is looking at multiple versions of multiprocess to determine which version is compatible with other requirements. This could take a while.
+Collecting multiprocess (from datasets<3.0,>=2.19)
+  Downloading multiprocess-0.70.18-py310-none-any.whl.metadata (7.5 kB)
+  Downloading multiprocess-0.70.17-py310-none-any.whl.metadata (7.2 kB)
+  Downloading multiprocess-0.70.16-py310-none-any.whl.metadata (7.2 kB)
+Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.10/dist-packages (from pandas->datasets<3.0,>=2.19) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.10/dist-packages (from pandas->datasets<3.0,>=2.19) (2024.1)
+Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.10/dist-packages (from pandas->datasets<3.0,>=2.19) (2024.1)
+Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.10/dist-packages (from python-dateutil>=2.8.2->pandas->datasets<3.0,>=2.19) (1.16.0)
+Requirement already satisfied: mpmath>=0.19 in /usr/local/lib/python3.10/dist-packages (from sympy->torch<2.5) (1.3.0)
+Downloading transformers-4.47.1-py3-none-any.whl (10.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.1/10.1 MB 42.9 MB/s  0:00:00
+Downloading peft-0.13.2-py3-none-any.whl (320 kB)
+Downloading datasets-2.21.0-py3-none-any.whl (527 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 527.3/527.3 kB 184.1 MB/s  0:00:00
+Downloading accelerate-0.34.2-py3-none-any.whl (324 kB)
+Downloading huggingface_hub-0.36.2-py3-none-any.whl (566 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 566.4/566.4 kB 85.4 MB/s  0:00:00
+Downloading dill-0.3.8-py3-none-any.whl (116 kB)
+Downloading hf_xet-1.4.3-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 134.3 MB/s  0:00:00
+Downloading tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 171.5 MB/s  0:00:00
+Downloading sentencepiece-0.2.1-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 104.3 MB/s  0:00:00
+Downloading pyarrow-24.0.0-cp310-cp310-manylinux_2_28_x86_64.whl (48.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.8/48.8 MB 177.2 MB/s  0:00:00
+Downloading requests-2.33.1-py3-none-any.whl (64 kB)
+Downloading safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (507 kB)
+Downloading multiprocess-0.70.16-py310-none-any.whl (134 kB)
+Downloading xxhash-3.7.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (193 kB)
+Installing collected packages: xxhash, sentencepiece, safetensors, requests, pyarrow, hf-xet, dill, multiprocess, huggingface-hub, tokenizers, accelerate, transformers, datasets, peft
+  Attempting uninstall: requests
+    Found existing installation: requests 2.31.0
+    Not uninstalling requests at /usr/local/lib/python3.10/dist-packages, outside environment /home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora
+    Can't uninstall 'requests'. No files were found to uninstall.
+  Attempting uninstall: pyarrow
+    Found existing installation: pyarrow 14.0.2
+    Not uninstalling pyarrow at /usr/local/lib/python3.10/dist-packages, outside environment /home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora
+    Can't uninstall 'pyarrow'. No files were found to uninstall.
+
+Successfully installed accelerate-0.34.2 datasets-2.21.0 dill-0.3.8 hf-xet-1.4.3 huggingface-hub-0.36.2 multiprocess-0.70.16 peft-0.13.2 pyarrow-24.0.0 requests-2.33.1 safetensors-0.7.0 sentencepiece-0.2.1 tokenizers-0.21.4 transformers-4.47.1 xxhash-3.7.0
+[run] nvidia-smi:
+Sun May  3 13:35:47 2026       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.161.08             Driver Version: 535.161.08   CUDA Version: 12.4     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  Tesla V100-SXM2-32GB           Off | 00000000:0B:00.0 Off |                    0 |
+| N/A   34C    P0              42W / 300W |      0MiB / 32768MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
+[run] torch/cuda quick check:
+torch 2.4.0a0+07cecf4168.nv24.05
+torch cuda build 12.4
+cuda available True
+device count 1
+[run] starting lora_finetune.py
+starting LoRA run with model=Qwen/Qwen2.5-Coder-1.5B-Instruct
+torch=2.4.0a0+07cecf4168.nv24.05 cuda_build=12.4 cuda_available=True
+cuda_device_count=1
+splits: train=2006 val=250 test=253
+run_id=253531 output_dir=data_collection_2/lora_runs/run_253531
+loading tokenizer/model...
+trainable params: 18,464,768 || all params: 1,562,179,072 || trainable%: 1.1820
+model/tokenizer loaded
+tokenizing datasets...
+tokenized dataset sizes: train=2006 val=250 test=253
+starting training...
+{'loss': 1.8711, 'grad_norm': 0.6557790040969849, 'learning_rate': 0.0001955922865013774, 'epoch': 0.16}
+{'loss': 1.3999, 'grad_norm': 0.7050734758377075, 'learning_rate': 0.00018457300275482094, 'epoch': 0.32}
+{'loss': 1.3377, 'grad_norm': 0.6907482147216797, 'learning_rate': 0.00017355371900826448, 'epoch': 0.48}
+{'loss': 1.2704, 'grad_norm': 0.6317636370658875, 'learning_rate': 0.00016253443526170798, 'epoch': 0.64}
+{'loss': 1.2755, 'grad_norm': 0.6099199652671814, 'learning_rate': 0.00015151515151515152, 'epoch': 0.8}
+{'loss': 1.2372, 'grad_norm': 0.5696275234222412, 'learning_rate': 0.00014049586776859505, 'epoch': 0.96}
+{'eval_loss': 1.0807653665542603, 'eval_runtime': 30.6287, 'eval_samples_per_second': 8.162, 'eval_steps_per_second': 4.081, 'epoch': 1.0}
+{'loss': 1.1239, 'grad_norm': 0.8510333895683289, 'learning_rate': 0.00012947658402203858, 'epoch': 1.11}
+{'loss': 0.9785, 'grad_norm': 0.6596290469169617, 'learning_rate': 0.0001184573002754821, 'epoch': 1.27}
+{'loss': 1.0248, 'grad_norm': 0.717073917388916, 'learning_rate': 0.00010743801652892562, 'epoch': 1.43}
+{'loss': 1.1231, 'grad_norm': 0.6894482374191284, 'learning_rate': 9.641873278236915e-05, 'epoch': 1.59}
+{'loss': 1.0592, 'grad_norm': 0.7236725091934204, 'learning_rate': 8.539944903581267e-05, 'epoch': 1.75}
+{'loss': 1.0887, 'grad_norm': 1.1767488718032837, 'learning_rate': 7.43801652892562e-05, 'epoch': 1.91}
+{'eval_loss': 1.0176613330841064, 'eval_runtime': 30.674, 'eval_samples_per_second': 8.15, 'eval_steps_per_second': 4.075, 'epoch': 2.0}
+{'loss': 1.0179, 'grad_norm': 0.9360964298248291, 'learning_rate': 6.336088154269972e-05, 'epoch': 2.06}
+{'loss': 0.9478, 'grad_norm': 0.7287907004356384, 'learning_rate': 5.234159779614325e-05, 'epoch': 2.22}
+{'loss': 0.8542, 'grad_norm': 1.2080824375152588, 'learning_rate': 4.132231404958678e-05, 'epoch': 2.38}
+{'loss': 0.8261, 'grad_norm': 0.7838777303695679, 'learning_rate': 3.0303030303030306e-05, 'epoch': 2.54}
+{'loss': 0.9807, 'grad_norm': 0.9433656930923462, 'learning_rate': 1.928374655647383e-05, 'epoch': 2.7}
+{'loss': 0.9581, 'grad_norm': 0.9111449122428894, 'learning_rate': 8.264462809917356e-06, 'epoch': 2.86}
+{'eval_loss': 1.0299040079116821, 'eval_runtime': 30.6715, 'eval_samples_per_second': 8.151, 'eval_steps_per_second': 4.075, 'epoch': 2.98}
+{'train_runtime': 1732.9134, 'train_samples_per_second': 3.473, 'train_steps_per_second': 0.216, 'train_loss': 1.11952587890625, 'epoch': 2.98}
+training complete; running eval...
+saved adapter: data_collection_2/lora_runs/run_253531/adapter
+saved report: data_collection_2/lora_runs/run_253531/report.json
+saved samples: data_collection_2/lora_runs/run_253531/samples.json

@@ -1,0 +1,20 @@
+splits: train=2006 val=250 test=253
+vocab size: 6904
+model created
+epoch 1/10 - train loss: 4.6095 - val loss: 5.3643
+epoch 2/10 - train loss: 3.5244 - val loss: 5.8480
+epoch 3/10 - train loss: 3.1586 - val loss: 5.9461
+epoch 4/10 - train loss: 2.8646 - val loss: 6.1061
+epoch 5/10 - train loss: 2.7136 - val loss: 6.2490
+epoch 6/10 - train loss: 2.5499 - val loss: 6.0721
+epoch 7/10 - train loss: 2.4131 - val loss: 6.3137
+epoch 8/10 - train loss: 2.2956 - val loss: 6.4306
+epoch 9/10 - train loss: 2.1813 - val loss: 6.4480
+epoch 10/10 - train loss: 2.0780 - val loss: 6.4180
+saved checkpoint: models/seq2seq_prototype_253368.pt
+final test loss: 5.3949
+saved report: reports/seq2seq_train_eval_253368.json
+
+TEST QUESTION: sort the data by population column
+GENERATED CODE:
+ pd.offsets.offsets.offsets.offsets.offsets.offsets.offsets.offsets([",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",",","

@@ -1,0 +1,57 @@
+15:4: not a valid test operator:  
+15:4: not a valid test operator: 12.4
+21:4: not a valid test operator: (
+21:4: not a valid test operator: 525.105.17
+/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/torch/cuda/__init__.py:180: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 12040). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:119.)
+  return torch._C._cuda_getDeviceCount() > 0
+The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers and GPU quantization are unavailable.
+Map:   0%|          | 0/2006 [00:00<?, ? examples/s]Map:  50%|████▉     | 1000/2006 [00:00<00:00, 4033.37 examples/s]Map: 100%|██████████| 2006/2006 [00:00<00:00, 5736.90 examples/s]
+Map:   0%|          | 0/250 [00:00<?, ? examples/s]Map: 100%|██████████| 250/250 [00:00<00:00, 8612.89 examples/s]
+Map:   0%|          | 0/253 [00:00<?, ? examples/s]Map: 100%|██████████| 253/253 [00:00<00:00, 7923.77 examples/s]
+/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/training_args.py:1575: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead
+  warnings.warn(
+Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+  0%|          | 0/375 [00:00<?, ?it/s]/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  super().__init__(loader)
+Traceback (most recent call last):
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 777, in convert_to_tensors
+    tensor = as_tensor(value)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 739, in as_tensor
+    return torch.tensor(value)
+ValueError: expected sequence of length 94 at dim 1 (got 112)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/lora_finetune.py", line 247, in <module>
+    "config": vars(args),
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/lora_finetune.py", line 207, in main
+    
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/trainer.py", line 2164, in train
+    return inner_training_loop(
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/trainer.py", line 2473, in _inner_training_loop
+    batch_samples, num_items_in_batch = self.get_batch_samples(epoch_iterator, num_batches)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/trainer.py", line 5130, in get_batch_samples
+    batch_samples += [next(epoch_iterator)]
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/accelerate/data_loader.py", line 550, in __iter__
+    current_batch = next(dataloader_iter)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 741, in __next__
+    data = self._next_data()
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 801, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 57, in fetch
+    return self.collate_fn(data)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/data/data_collator.py", line 45, in __call__
+    return self.torch_call(features)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/data/data_collator.py", line 807, in torch_call
+    batch = pad_without_fast_tokenizer_warning(
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/data/data_collator.py", line 66, in pad_without_fast_tokenizer_warning
+    padded = tokenizer.pad(*pad_args, **pad_kwargs)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 3380, in pad
+    return BatchEncoding(batch_outputs, tensor_type=return_tensors)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 241, in __init__
+    self.convert_to_tensors(tensor_type=tensor_type, prepend_batch_axis=prepend_batch_axis)
+  File "/home/ad.msoe.edu/waltzc/NLP/NLP-Code-Execution/.venv_lora/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 793, in convert_to_tensors
+    raise ValueError(
+ValueError: Unable to create tensor, you should probably activate truncation and/or padding with 'padding=True' 'truncation=True' to have batched tensors with the same length. Perhaps your features (`labels` in this case) have excessive nesting (inputs type `list` where type `int` is expected).
+  0%|          | 0/375 [00:00<?, ?it/s]

@@ -1,7 +1,0 @@
-examples: 5274
-vocab size: 8719
-[Fold 1] epoch 1: train=4.0019 val=5.1907
-[Fold 1] epoch 2: train=2.9132 val=5.3935
-[Fold 1] epoch 3: train=2.5535 val=5.3641
-[Fold 1] epoch 4: train=2.2888 val=5.6257
-[Fold 1] epoch 5: train=2.0965 val=5.5521

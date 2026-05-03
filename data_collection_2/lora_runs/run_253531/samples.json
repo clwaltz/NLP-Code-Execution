@@ -1,0 +1,42 @@
+[
+  {
+    "q": "DateOffset increments between calendar year begin dates.",
+    "target": "ts = pd.Timestamp(2023, 1, 1)\npd.offsets.YearBegin().rollback(ts)\n\nts = pd.Timestamp(2022, 1, 1)\nts + pd.offsets.YearBegin(month=2)",
+    "pred": "ts = pd.Timestamp(2022, 12, 31)\npd.offsets.CalendarYearBegin().rollforward(ts)\n\nts = pd.Timestamp(2022, 7, 4)\nts + pd.offsets.CalendarYearBegin() # defaults to 'NOLEAP' rule\nts + pd.offsets.CalendarYearBegin('BYEARLAST') # 'BYEARLAST' rule<|fim_prefix|>/*\nCalendarYearBegin() object\n\nMethods:\napply()          Returns the new timestamp after incrementing it.\nrollback()       Returns the new timestamp before incrementing it.\nrollforward()    Returns the next timestamp on"
+  },
+  {
+    "q": "Make a copy of this object's indices and data.",
+    "target": "s = pd.Series([[1, 2], [3, 4]])\ndeep = s.copy()\ns[0][0] = 10\ns\ndeep\n\ns = pd.Series([1, 2], index=[\"a\", \"b\"])\nshallow = s.copy(deep=False)\ns.iloc[1] = 200\nshallow",
+    "pred": "idx = pd.Index([\"a\", \"b\", \"c\"])\nidx.copy()\n\nidx = pd.Index([\"a\", \"b\", \"c\"], name=\"foo\")\nidx.copy()import pandas as pd\ndf = pd.DataFrame(\n{\"A\": [1, 2], \"B\": [3, 4]}, index=[\"a\", \"b\"]\n)\ndf.reindex([\"c\"])  # missing key; returns an empty Index and Series\ndf.reindex([\"a\", \"c\"])  # missing values can be filled using NaNs\n# fill missing index with previous value\ndf.reindex([\"a\", \"c\"])."
+  },
+  {
+    "q": "Perform column-wise combine with another DataFrame.",
+    "target": "df1 = pd.DataFrame({\"A\": [0, 0], \"B\": [4, 4]})\ndf2 = pd.DataFrame(\n{\n\"B\": [3, 3],\n\"C\": [-10, 1],\n},\nindex=[1, 2],\n)\ndf1.combine(df2, take_smaller)\n\ndf2 = pd.DataFrame(\n{\n\"B\": [3, 3],\n\"C\": [1, 1],\n},\nindex=[1, 2],\n)\ndf2.combine(df1, take_smaller)",
+    "pred": "df1 = pd.DataFrame({\"a\": [2, 3], \"b\": [\"x\", \"y\"]})\ndf2 = pd.DataFrame({\"b\": [4, 5], \"c\": [6, 7]})\ndf1.combine_first(df2)\ndf2.combine_first(df1)\n\ndf1 = pd.DataFrame([[0.0, 0.0], [1.0, 1.0]], columns=[\"col_1\", \"col_2\"])\ndf2 = pd.DataFrame(\n[[np.nan, np.nan], [0.8, 0.9]], columns=[\"col_1\", \"col"
+  },
+  {
+    "q": "Why do I get a SettingWithCopyWarning when using shift and dropna inside a function?\n\nIn general, when I receive this warning\nI head to the second answer on How to deal with SettingWithCopyWarning in Pandas and try to reduce my code to one of the presented examples.\nThis time, however, I'm stuck with this not-so-minimal MWE:\nI tried to minimize it further, but the warning disappears when I remove any of the blocks or paste the function's code into main. Hence, my assumption is that the warning is caused of a combination of the operations. But it eludes me, why this would be the case. From this question I assume, I'm always working on the original dataframe, as intended.\nFrom my understanding, I probably do a slicing somewhere, so I tried to place loc[: , 'column_name'] everywhere I assume slicing happens ( edit_df_loc below), like the docs suggest. It does the modifications, but it still shows the warning.\nUsing dropna().copy() or dropna(inplace=True) makes the warning disappear. But I don't know, why I'd want to copy the dataframe (do I have to?) and inplace shouldn't be used .\nWhy do I face the warning and how do I properly fix it?\npandas version 2.3.3\nI could well be missing terminology, so pointing me to a duplicate-target that explains the situation is also highly appreciated.\nFor reference, here are some of the variations that don't produce a warning and my attempt to use loc[] .\nI'm constructing a new dataframe every time, so there shouldn't be any slice upstream, as suggested here .",
+    "target": "def log(msg: str, df: pd.DataFrame):\n    print(f\"{msg} {id(df):#0x}\")\n    print(f\"Is a copy: {df._is_copy if df._is_copy else False}\")\n    print(f\"Is a view: {df._is_view}\")\n    for blk in df._mgr.blocks:\n        print(blk, hex(blk.values.__array_interface__[\"data\"][0]))\n    print()\n\ndf = pd.DataFrame({'base': [1, 2, 3]})\ndf[\"shifted\"] = df[\"base\"].shift(-1)\ndf[\"diff\"] = df[\"shifted\"] - df[\"base\"]\nlog(\"Original\", df)\n\ndf1 = df.dropna()\nlog(\"Dropna\", df1)\n\n# del df  # <- this statement breaks the weakref\ndf1.loc[:, \"match\"] = df1.loc[:, \"base\"] > 1\nlog(\"Edit\", df1)",
+    "pred": "def modify(df):\n    df['new_column'] = df['column_name'].shift(-1).fillna(0)\n    return df.drop(columns=['column_name'])\n\ndf_modified = modify(df)\n\nprint(modify(df)) # no warning\n\ndef modify2(df):\n    df.loc[:, 'new_column'] = df.loc[:, 'column_name'].shift(-1).fillna(0)\n    return df.drop(columns=['column_name']) \n\ndf_modified = modify2(df) # warning disappears when commenting out the above line\n\nprint(modify2(df)) # warning remains when commenting out the above line\n\ndef modify3(df):\n    df.loc"
+  },
+  {
+    "q": "Create a Series with both index and values equal to the index keys.",
+    "target": "idx.to_series(index=[0, 1, 2])\n\nidx.to_series(name=\"zoo\")",
+    "pred": "idx = pd.Index([\"a\", \"b\", \"c\"])\nidx\n\npd.Series(idx)<|fim_prefix|>:\nCreate a DataFrame from the passed Series/Index using the column name as column\nname.\n\nCode:\nser = pd.Series(list(\"abcd\"))\ndf = ser.to_frame(name=\"letters\")\ndf\n\nidx = pd.Index([1, 2, 3])\ndf = idx.to_frame()\ndf.columns = [\"numbers\"]\ndf\n\nidx = pd.Index([\"a\", \"b\", \"c\"])\nser = idx.to_series()\nser.name = \"letters\"\nser.name  # returns None by default, set manually here. You can also"
+  },
+  {
+    "q": "Exception raised by query or eval when using an undefined variable name.",
+    "target": "df = pd.DataFrame({\"A\": [1, 1, 1]})\ndf.query(\"A > x\")\n# UndefinedVariableError: name 'x' is not defined\ndf.query(\"A > @y\")\n# UndefinedVariableError: local variable 'y' is not defined\npd.eval(\"x + 1\")\n# UndefinedVariableError: name 'x' is not defined",
+    "pred": "df = pd.DataFrame({\"A\": [1, 2]})\npd.eval(\"A + B\", dtype_backend=\"numpy_nullable\")  # Raises NameError\n\ndf.query(\"B is a\")  # Raises NameError\ndf.query(\"B == A | a == A\", engine=\"python\")  # Raises NameError\npd.eval(\"B * C\", local_dict={\"C\": 3})  # Raises NameError\npd.eval(\"B * C\", global_dict={\"C\": 3})  # Raises NameError\npd.eval(\"B * C\", local_dict={})  # Raises NameError\npd.eval(\""
+  },
+  {
+    "q": "Return a string representing the base frequency.",
+    "target": "pd.offsets.Week(5).rule_code\n\npd.offsets.Hour().rule_code",
+    "pred": "pd.offsets.Week(5).rule_code\n\npd.offsets.Hour().rule_code\npd.offsets.Day(5).rule_code\npd.offsets.Year(3).rule_code\n\npd.offsets.Year(3).rule_code\npd.offsets.Month(2).rule_code\npd.offsets.Week(5).rule_code\npd.offsets.Hour().rule_code\npd.offsets.Minute().rule_code\npd.offsets.Second(5).rule_code\npd.offsets.Millisecond(3).rule_code\npd.offsets.microsecond(1).rule_code\npd.offsets.Nanosecond(0).rule"
+  },
+  {
+    "q": "Return reshaped DataFrame organized by given index / column values.",
+    "target": "df.pivot(index=[\"lev1\", \"lev2\"], columns=[\"lev3\"], values=\"values\")\n\ndf.pivot(index=\"lev1\", columns=[\"lev2\", \"lev3\"], values=\"values\")",
+    "pred": "df = pd.DataFrame(np.arange(10).reshape((5, 2)), columns=[\"A\", \"B\"])\nprint(df)\n#   A  B\n# 0  0  2\n# 1  1  4\n# 2  2  6\n# 3  3  8\n# 4  4 10\n\ns_reshaped = df[[\"A\"]].unstack()\nprint(s_reshaped)\n# B    2\n# A    0\n# B    4\n# A    1\n#"
+  }
+]

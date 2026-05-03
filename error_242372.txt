@@ -1,6 +1,0 @@
-15:4: not a valid test operator:  
-15:4: not a valid test operator: 12.4
-21:4: not a valid test operator: (
-21:4: not a valid test operator: 525.105.17
-/home/ad.msoe.edu/waltzc/.local/lib/python3.10/site-packages/transformers/utils/generic.py:441: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
-  _torch_pytree._register_pytree_node(

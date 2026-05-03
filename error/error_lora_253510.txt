@@ -1,0 +1,7 @@
+15:4: not a valid test operator:  
+15:4: not a valid test operator: 12.4
+21:4: not a valid test operator: (
+21:4: not a valid test operator: 525.105.17
+/usr/bin/bash: line 1: warning: here-document at line 1 delimited by end-of-file (wanted `PYnimport')
+/usr/bin/bash: -c: line 1: syntax error near unexpected token `('
+/usr/bin/bash: -c: line 1: `rm -rf .venv_lora   && python -m venv --system-site-packages .venv_lora   && source .venv_lora/bin/activate   && echo '[setup] upgrading pip'   && python -m pip install --upgrade pip   && echo '[setup] installing base LoRA deps'   && python -m pip install --upgrade-strategy only-if-needed     'transformers>=4.41,<4.48'     'peft>=0.11,<0.14'     'datasets>=2.19,<3.0'     'accelerate>=0.30,<1.0'     sentencepiece && source .venv_lora/bin/activate   && export PYTHONNOUSERSITE=1   && export PYTHONUNBUFFERED=1   && echo '[run] nvidia-smi:'   && nvidia-smi || true   && echo '[run] torch/cuda quick check:'   && python - <<'PY'\nimport torch\nprint('torch', torch.__version__)\nprint('torch cuda build', torch.version.cuda)\nprint('cuda available', torch.cuda.is_available())\nprint('device count', torch.cuda.device_count())\nPY   && echo '[run] starting lora_finetune.py'   && python -u lora_finetune.py   --data_dir data_collection_2   --output_dir data_collection_2/lora_runs   --model_name Qwen/Qwen2.5-Coder-1.5B-Instruct'

@@ -1,0 +1,43 @@
+{
+  "run_id": "253531",
+  "base_model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "data_dir": "data_collection_2",
+  "train_size": 2006,
+  "val_size": 250,
+  "test_size": 253,
+  "val_metrics": {
+    "eval_loss": 1.0176613330841064,
+    "eval_runtime": 30.682,
+    "eval_samples_per_second": 8.148,
+    "eval_steps_per_second": 4.074,
+    "epoch": 2.9810568295114654
+  },
+  "test_metrics": {
+    "test_loss": 1.0306968688964844,
+    "test_runtime": 31.216,
+    "test_samples_per_second": 8.105,
+    "test_steps_per_second": 4.068,
+    "epoch": 2.9810568295114654
+  },
+  "adapter_dir": "data_collection_2/lora_runs/run_253531/adapter",
+  "samples_file": "data_collection_2/lora_runs/run_253531/samples.json",
+  "config": {
+    "data_dir": "data_collection_2",
+    "model_name": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+    "output_dir": "data_collection_2/lora_runs",
+    "max_length": 512,
+    "batch_size": 2,
+    "grad_accum": 8,
+    "epochs": 3,
+    "learning_rate": 0.0002,
+    "warmup_ratio": 0.03,
+    "weight_decay": 0.01,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "target_modules": "q_proj,k_proj,v_proj,o_proj,up_proj,down_proj,gate_proj",
+    "seed": 42,
+    "load_in_4bit": false,
+    "save_samples": 8
+  }
+}

@@ -1,0 +1,2 @@
+splits: train=2006 val=250 test=253
+trainable params: 18,464,768 || all params: 1,562,179,072 || trainable%: 1.1820
